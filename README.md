@@ -1,8 +1,8 @@
 # cook rice on the fly🍙
-![Alt text](relative%20showcase/1.png?raw=true)
-![Alt text](relative%20showcase/2.png?raw=true)
-![Alt text](relative%20showcase/3.png?raw=true)
-![Alt text](relative%20showcase/4.png?raw=true)
+![img 1](showcase/1.png)
+![img 2](showcase/2.png)
+![img 3](showcase/3.png)
+![img 4](showcase/4.png)
 # requirements
 - xwallpaper(must be set somewhere in the i3 config file)
     - for example:
