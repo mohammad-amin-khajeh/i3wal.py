@@ -10,6 +10,7 @@ home = getenv("HOME")
 i3_config = f"{home}/.config/i3/config"
 wallpath = f"{home}/Pictures/wallpapers"
 xresources = f"{home}/.Xresources"
+launcher = "rofi -dmenu -p 'select the wallpaper: '"
 
 
 def main():
@@ -32,7 +33,7 @@ def chosen_wallpaper() -> str:
     wallpaper_list = listdir(wallpath)
     choices = "\n".join(wallpaper_list)
     chosen = check_output(
-        f"echo '{choices}' | rofi -dmenu -i -p 'select the wallpaper: '", shell=True
+        f"echo '{choices}' | {launcher}", shell=True
     )
     chosen = chosen.decode().removesuffix("\n")
     return f"{wallpath}/{chosen}"
