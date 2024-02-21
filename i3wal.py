@@ -3,6 +3,7 @@
 from os import getenv, listdir
 from subprocess import check_output, run
 from sys import argv
+from glob import glob
 
 
 home = getenv("HOME")
@@ -50,17 +51,18 @@ def edit_config_file(wallpaper: str) -> None:
 
 
 def edit_xresources_file(file: str) -> None:
-    with open(file, "a") as xresources:
-        xresources.write(
-            """
-            Xft.antialias: 1
-            Xft.autohint: 0
-            Xft.dpi: 96
-            Xft.hinting: 1
-            Xft.hintstyle: hintslight
-            Xft.lcdfilter: lcddefault
-            Xft.rgba: none"""
-        )
+    if glob(f"{file}"):
+        with open(file, "a") as xresources:
+            xresources.write(
+                """
+                Xft.antialias: 1
+                Xft.autohint: 0
+                Xft.dpi: 96
+                Xft.hinting: 1
+                Xft.hintstyle: hintslight
+                Xft.lcdfilter: lcddefault
+                Xft.rgba: none"""
+            )
 
 
 def reload_theme(wallpaper: str) -> None:
