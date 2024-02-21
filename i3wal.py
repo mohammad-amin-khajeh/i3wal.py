@@ -19,6 +19,7 @@ def main():
     edit_xresources_file(xresources)
 
 
+# check whether a parameter is provided
 def arg_checker() -> str:
     if len(argv) > 1:
         return argv[1]
@@ -26,6 +27,7 @@ def arg_checker() -> str:
         return chosen_wallpaper()
 
 
+# launch rofi if no parameters were provided
 def chosen_wallpaper() -> str:
     wallpaper_list = listdir(wallpath)
     choices = "\n".join(wallpaper_list)
@@ -36,6 +38,7 @@ def chosen_wallpaper() -> str:
     return f"{wallpath}/{chosen}"
 
 
+# make wallpaper load across restarts by setting it in the i3 config file
 def edit_config_file(wallpaper: str) -> None:
     with open(i3_config, "r+") as file:
         data = file.readlines()
@@ -50,6 +53,7 @@ def edit_config_file(wallpaper: str) -> None:
         file.truncate()
 
 
+# add some font display goodies to .xresources
 def edit_xresources_file(file: str) -> None:
     if glob(f"{file}"):
         with open(file, "a") as xresources:
@@ -65,6 +69,7 @@ def edit_xresources_file(file: str) -> None:
             )
 
 
+# set the new wallpaper and use it for pywal
 def reload_theme(wallpaper: str) -> None:
     run(
         f"xwallpaper --zoom '{wallpaper}'; wal -i '{wallpaper}' 1> /dev/null",
