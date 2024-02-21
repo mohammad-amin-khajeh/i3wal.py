@@ -9,7 +9,7 @@ from glob import glob
 home = getenv("HOME")
 i3_config = f"{home}/.config/i3/config"
 wallpath = f"{home}/Pictures/wallpapers"
-xresources = f"{home}/.Xresources"
+xresources = f"{home}/.cache/wal/colors.Xresources"
 launcher = "rofi -dmenu -p 'select the wallpaper: '"
 
 
@@ -32,9 +32,7 @@ def arg_checker() -> str:
 def chosen_wallpaper() -> str:
     wallpaper_list = listdir(wallpath)
     choices = "\n".join(wallpaper_list)
-    chosen = check_output(
-        f"echo '{choices}' | {launcher}", shell=True
-    )
+    chosen = check_output(f"echo '{choices}' | {launcher}", shell=True)
     chosen = chosen.decode().removesuffix("\n")
     return f"{wallpath}/{chosen}"
 
@@ -60,13 +58,13 @@ def edit_xresources_file(file: str) -> None:
         with open(file, "a") as xresources:
             xresources.write(
                 """
-                Xft.antialias: 1
-                Xft.autohint: 0
-                Xft.dpi: 96
-                Xft.hinting: 1
-                Xft.hintstyle: hintslight
-                Xft.lcdfilter: lcddefault
-                Xft.rgba: none"""
+Xft.antialias: 1
+Xft.autohint: 0
+Xft.dpi: 96
+Xft.hinting: 1
+Xft.hintstyle: hintslight
+Xft.lcdfilter: lcddefault
+Xft.rgba: none"""
             )
 
 
