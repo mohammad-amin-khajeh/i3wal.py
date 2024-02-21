@@ -3,7 +3,7 @@
     - for example:
     ```xwallpaper --zoom "/home/mmd/Pictures/wallpapers/lain.png"```
 - pywal
-- .Xresources file
+- .Xresources file at home folder(must be a symlink pointing to ~/.cache/wal/colors.Xresources)
 - i3 config at .config/i3/config(can be changed in the script)
 - wallpapers folder at ~/Pictures/wallpapers(can be changed in the script)
-- rofi
+- rofi(can be changed to dmenu in the script)
