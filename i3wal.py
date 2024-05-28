@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 """a script that dynamically changes the wallpaper along with i3's theme(requires xwallpaper, pywal and Xresources)"""
+
 from os import getenv, listdir
 from subprocess import check_output, run
 from sys import argv
