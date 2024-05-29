@@ -15,18 +15,18 @@ launcher = "rofi -dmenu -p 'select the wallpaper: '"
 
 
 def main():
-    to_set = arg_checker()
+    to_set = chosen_wallpaper()
     reload_theme(to_set)
     edit_config_file(to_set)
     edit_xresources_file(xresources)
 
 
 # check whether a parameter is provided
-def arg_checker() -> str:
+def chosen_wallpaper() -> str:
     if len(argv) > 1:
         return argv[1]
     else:
-        return chosen_wallpaper()
+        return chosen_from_rofi()
 
 
 # set the new wallpaper and use it for pywal
@@ -38,7 +38,7 @@ def reload_theme(wallpaper: str) -> None:
 
 
 # launch rofi if no parameters were provided
-def chosen_wallpaper() -> str:
+def chosen_from_rofi() -> str:
     wallpaper_list = listdir(wallpath)
     choices = "\n".join(wallpaper_list)
     chosen = check_output(f"echo '{choices}' | {launcher}", shell=True)
