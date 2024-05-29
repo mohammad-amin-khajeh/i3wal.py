@@ -42,11 +42,11 @@ def chosen_wallpaper() -> str:
 def edit_config_file(wallpaper: str) -> None:
     with open(i3_config, "r+") as file:
         data = file.readlines()
-        for i, line in enumerate(data):
-            if "xwallpaper" in line:
-                before_wallpaper = data[i].split('"')[0]
-                wallpaper = data[i].split('"')[1] = wallpaper
-                data[i] = before_wallpaper + '"' + wallpaper + '"\n'
+        for line_number, line_content in enumerate(data):
+            if "xwallpaper" in line_content:
+                before_wallpaper = data[line_number].split('"')[0]
+                wallpaper = data[line_number].split('"')[1] = wallpaper
+                data[line_number] = before_wallpaper + '"' + wallpaper + '"\n'
                 break
         file.seek(0)
         file.writelines(data)
