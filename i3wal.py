@@ -29,6 +29,14 @@ def arg_checker() -> str:
         return chosen_wallpaper()
 
 
+# set the new wallpaper and use it for pywal
+def reload_theme(wallpaper: str) -> None:
+    run(
+        f"xwallpaper --zoom '{wallpaper}'; wal -i '{wallpaper}' 1> /dev/null",
+        shell=True,
+    )
+
+
 # launch rofi if no parameters were provided
 def chosen_wallpaper() -> str:
     wallpaper_list = listdir(wallpath)
@@ -67,14 +75,6 @@ Xft.hintstyle: hintslight
 Xft.lcdfilter: lcddefault
 Xft.rgba: none"""
             )
-
-
-# set the new wallpaper and use it for pywal
-def reload_theme(wallpaper: str) -> None:
-    run(
-        f"xwallpaper --zoom '{wallpaper}'; wal -i '{wallpaper}' 1> /dev/null",
-        shell=True,
-    )
 
 
 if __name__ == "__main__":
