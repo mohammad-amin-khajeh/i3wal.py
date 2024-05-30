@@ -12,6 +12,7 @@ i3_config = f"{home}/.config/i3/config"
 wallpath = f"{home}/Pictures/wallpapers"
 xresources = f"{home}/.cache/wal/colors.Xresources"
 launcher = "rofi -dmenu -p 'select the wallpaper: '"
+valid_formats = (".mp4", ".webm", ".mkv", ".webp", ".jpg", ".jpeg", ".png")
 
 
 def main():
@@ -23,10 +24,13 @@ def main():
 
 # check whether a parameter is provided
 def chosen_wallpaper() -> str:
-    if len(argv) > 1:
+    if len(argv) == 1:
+        return chosen_from_rofi()
+    if argv[1].endswith(valid_formats):
         return argv[1]
     else:
-        return chosen_from_rofi()
+        print("cannot extract colors from the file you provided, exiting...")
+        exit(1)
 
 
 # set the new wallpaper and use it for pywal
