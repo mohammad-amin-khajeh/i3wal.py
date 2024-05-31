@@ -13,12 +13,13 @@ wallpath = f"{home}/Pictures/wallpapers"
 xresources = f"{home}/.cache/wal/colors.Xresources"
 launcher = "rofi -dmenu -p 'select the wallpaper: '"
 valid_formats = (".mp4", ".webm", ".mkv", ".webp", ".jpg", ".jpeg", ".png")
+initializer = "xargs --arg-file=.cache/wal/wal -d $ xwallpaper"
 
 
 def main():
     to_set = chosen_wallpaper()
     reload_theme(to_set)
-    edit_config_file(to_set)
+    edit_config_file()
     edit_xresources_file(xresources)
 
 
@@ -51,18 +52,12 @@ def chosen_from_rofi() -> str:
 
 
 # make wallpaper load across restarts by setting it in the i3 config file
-def edit_config_file(wallpaper: str) -> None:
-    with open(i3_config, "r+") as file:
-        data = file.readlines()
-        for line_number, line_content in enumerate(data):
-            if "xwallpaper" in line_content:
-                before_wallpaper = data[line_number].split('"')[0]
-                wallpaper = data[line_number].split('"')[1] = wallpaper
-                data[line_number] = before_wallpaper + '"' + wallpaper + '"\n'
-                break
+def edit_config_file() -> None:
+    with open(i3_config, "a+") as file:
         file.seek(0)
-        file.writelines(data)
-        file.truncate()
+        data = file.read()
+        if initializer.lower() not in data.lower():
+            file.write(f"exec --no-startup-id {initializer} --zoom\n")
 
 
 # add some font display goodies to .xresources
