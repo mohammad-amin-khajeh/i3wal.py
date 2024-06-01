@@ -23,7 +23,7 @@ def main():
     edit_xresources_file(xresources)
 
 
-# check whether a parameter is provided
+# check whether a parameter(picture or video) is provided
 def chosen_wallpaper() -> str:
     if len(argv) == 1:
         return chosen_from_rofi()
