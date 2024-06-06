@@ -8,26 +8,26 @@ from glob import glob
 
 
 home = getenv("HOME")
-i3_config = f"{home}/.config/i3/config"
-wallpath = f"{home}/Pictures/wallpapers"
-xresources = f"{home}/.cache/wal/colors.Xresources"
-launcher = "rofi -dmenu -p 'select the wallpaper: '"
-valid_formats = (".mp4", ".webm", ".mkv", ".webp", ".jpg", ".jpeg", ".png")
-initializer = "xargs --arg-file=.cache/wal/wal -d $ xwallpaper"
+I3_CONFIG = f"{home}/.config/i3/config"
+WALLPATH = f"{home}/Pictures/wallpapers"
+XRESOURCES = f"{home}/.cache/wal/colors.Xresources"
+LAUNCHER = "rofi -dmenu -p 'select the wallpaper: '"
+VALID_FORMATS = (".mp4", ".webm", ".mkv", ".webp", ".jpg", ".jpeg", ".png")
+INITIALIZER = "xargs --arg-file=.cache/wal/wal -d $ xwallpaper"
 
 
 def main():
     to_set = chosen_wallpaper()
     reload_theme(to_set)
     edit_config_file()
-    edit_xresources_file(xresources)
+    edit_xresources_file(XRESOURCES)
 
 
 # check whether a parameter(picture or video) is provided
 def chosen_wallpaper() -> str:
     if len(argv) == 1:
         return chosen_from_rofi()
-    if argv[1].endswith(valid_formats):
+    if argv[1].endswith(VALID_FORMATS):
         return argv[1]
     else:
         print("cannot extract colors from the file you provided, exiting...")
@@ -44,20 +44,20 @@ def reload_theme(wallpaper: str) -> None:
 
 # launch rofi if no parameters were provided
 def chosen_from_rofi() -> str:
-    wallpaper_list = listdir(wallpath)
+    wallpaper_list = listdir(WALLPATH)
     choices = "\n".join(wallpaper_list)
-    chosen = check_output(f"echo '{choices}' | {launcher}", shell=True)
+    chosen = check_output(f"echo '{choices}' | {LAUNCHER}", shell=True)
     chosen = chosen.decode().removesuffix("\n")
-    return f"{wallpath}/{chosen}"
+    return f"{WALLPATH}/{chosen}"
 
 
 # make wallpaper load across restarts by setting it in the i3 config file
 def edit_config_file() -> None:
-    with open(i3_config, "a+") as file:
+    with open(I3_CONFIG, "a+") as file:
         file.seek(0)
         data = file.read()
-        if initializer.lower() not in data.lower():
-            file.write(f"exec --no-startup-id {initializer} --zoom\n")
+        if INITIALIZER.lower() not in data.lower():
+            file.write(f"exec --no-startup-id {INITIALIZER} --zoom\n")
 
 
 # add some font display goodies to .xresources
